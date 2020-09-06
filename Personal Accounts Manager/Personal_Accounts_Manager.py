@@ -108,13 +108,26 @@ def readInputFile():
         Accounts[organisation] = account
 
 #Start of Program
+
+#Receive input from User
 Input = input("Enter anything but 0\n")
+
+#Read the already existing info of the accounts
+#from the input text file
 readInputFile()
 
+#Print the read data for debugging purposes
 #printAccounts()
 
+#The main loop of the program
+#Will continue to ask for User's input till the User enters 0
 while (Input != "0"):
+
     accountsManager()
+    
+    # Receive input from User
     Input = input("Enter anything but 0\n")
 
+#Writing the info of the Accounts dictionary to an external text file
+#to save this info for future use
 writeToOutputFile()
