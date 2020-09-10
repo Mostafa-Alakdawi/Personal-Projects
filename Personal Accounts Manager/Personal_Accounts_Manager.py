@@ -63,14 +63,16 @@ def accountsManager():
 
     Organisation = input("Enter the name of the organisation: ")
 
-    if(Organisation in Accounts.keys()):
-        viewAccount(Organisation)
+    if not (Organisation in Accounts.keys()):
+        #For debugging purposes
+        #viewAccount(Organisation)
 
-    else:
         email = input("Enter email: ")
         password = generatePassword()
         account = Account(Organisation, email, password)
         Accounts[account.Organisation] = account
+
+    return (Organisation, Accounts[Organisation].Email, Accounts[Organisation].Password)
 
 #To write the contents of the Accounts dictionary to an external file
 def writeToOutputFile():
@@ -107,27 +109,25 @@ def readInputFile():
         account = Account(organisation, email, password)
         Accounts[organisation] = account
 
+
 #Start of Program
+def mainFunction():
 
-#Receive input from User
-Input = input("Enter anything but 0\n")
-
-#Read the already existing info of the accounts
-#from the input text file
-readInputFile()
-
-#Print the read data for debugging purposes
-#printAccounts()
-
-#The main loop of the program
-#Will continue to ask for User's input till the User enters 0
-while (Input != "0"):
-
-    accountsManager()
-    
-    # Receive input from User
+    #Receive input from User
     Input = input("Enter anything but 0\n")
 
-#Writing the info of the Accounts dictionary to an external text file
-#to save this info for future use
-writeToOutputFile()
+    #Read the already existing info of the accounts
+    #from the input text file
+    readInputFile()
+
+    #Print the read data for debugging purposes
+    #printAccounts()
+
+    #The main loop of the program
+    #Will continue to ask for User's input till the User enters 0
+    while (Input != "0"):
+
+        return accountsManager()
+
+        # Receive input from User
+        #Input = input("Enter anything but 0\n")
