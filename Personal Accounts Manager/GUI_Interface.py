@@ -3,6 +3,7 @@ from Personal_Accounts_Manager import *
 
 #To view account info in the specified text fieds
 def viewAccountInfoText(accountInfo):
+    eraseText()
     organisationText.insert(INSERT, accountInfo[0])
     emailText.insert(INSERT, accountInfo[1])
     passwordText.insert(INSERT, accountInfo[2])
@@ -10,7 +11,10 @@ def viewAccountInfoText(accountInfo):
 #call mainFunction() from Personal_Accounts_Manager to get/generate
 #account info
 def accountManagerStart():
-    viewAccountInfoText(mainFunction())
+    emailText.delete('1.0', END)
+    passwordText.delete('1.0', END)
+    organisation = organisationText.get("1.0",END)
+    viewAccountInfoText(mainFunction(organisation))
 
 #To erase account info from the specified text fieds
 def eraseText():
@@ -18,7 +22,13 @@ def eraseText():
     emailText.delete('1.0', END)
     passwordText.delete('1.0', END)
 
+#To erase account info from the specified text fieds
+def saveData():
+    #Writing the info of the Accounts dictionary to an external text file
+    #to save this info for future use
+    writeToOutputFile()
 
+#To initialize of the GUI elements
 def GUI_Init():
 
     #Setting the size of the window
@@ -45,11 +55,15 @@ def GUI_Init():
                             command = accountManagerStart)
     eraseButton = Button(master, text ="Erase", width = 10, font = ("Times New Roman", 20, "bold"),
                          command = eraseText)
+    saveButton = Button(master, text ="Save", width = 10, font = ("Times New Roman", 20, "bold"),
+                         command = saveData)
 
     # locating the GUI buttons
     generateButton.grid(row=5, column=0, padx=10, pady=10)
     eraseButton.grid(row=6, column=0, padx=10, pady=10)
+    saveButton.grid(row=7, column=0, padx=10, pady=10)
 
+#To start the execution of the GUI_Interface module
 def GUI_Start():
     #Initialization of the GUI elements
     GUI_Init()
