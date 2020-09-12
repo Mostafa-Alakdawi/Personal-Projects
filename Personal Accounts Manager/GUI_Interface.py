@@ -8,8 +8,8 @@ def viewAccountInfoText(accountInfo):
     emailText.insert(INSERT, accountInfo[1])
     passwordText.insert(INSERT, accountInfo[2])
 
-#call mainFunction() from Personal_Accounts_Manager to get/generate
-#account info
+#call mainFunction() passing the value of organisation from
+#Personal_Accounts_Manager to get/generate account info
 def accountManagerStart():
     emailText.delete('1.0', END)
     passwordText.delete('1.0', END)
@@ -22,7 +22,8 @@ def eraseText():
     emailText.delete('1.0', END)
     passwordText.delete('1.0', END)
 
-#To erase account info from the specified text fieds
+#To save all the accounts info to a specific text field by calling
+#writeToOutputFile() from Personal_Accounts_Manager.py file
 def saveData():
     #Writing the info of the Accounts dictionary to an external text file
     #to save this info for future use
@@ -41,9 +42,9 @@ def GUI_Init():
     Label(master, width = 20, text='Password Options', font=("Times New Roman", 20, "bold")).grid(row=0, column=2)
 
     # Configuring the font for the GUI text fields
-    organisationText.configure(font=("Times New Roman", 20))
-    emailText.configure(font=("Times New Roman", 20))
-    passwordText.configure(font=("Times New Roman", 20))
+    organisationText.configure(font=("Times New Roman", 15))
+    emailText.configure(font=("Times New Roman", 15))
+    passwordText.configure(font=("Times New Roman", 15))
 
     # locating the GUI text fields
     organisationText.grid(row=0, column=1, padx=10, pady=10)
