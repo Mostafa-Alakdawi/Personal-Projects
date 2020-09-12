@@ -7,22 +7,41 @@ Accounts = {}
 
 #A list to contain all the characters used for generating
 #the random password (91 character)
-Characters = ['Q','W','E','R','T','Y','U','I','O','P',
-              'A','S','D','F','G','H','J','K','L','Z',
-              'X','C','V','B','N','M','1','2','3','4',
-              '5','6','7','8','9','~','!','@','#','$',
-              '%','^','&','*','(',')','_','+','=','-',
-              'q','w','e','r','t','y','u','i','o','p',
-              '[',']','a','s','d','f','g','h','j','k',
-              ';','\'','\\','z','x','c','v','b','n',
-              'm',',','.','/','{','}',':','"','|','<',
-              '>','?']
+charactersSet1 = ['Q','W','E','R','T','Y','U','I','O','P',
+                  'A','S','D','F','G','H','J','K','L','Z',
+                  'X','C','V','B','N','M','1','2','3','4',
+                  '5','6','7','8','9','~','!','@','#','$',
+                  '%','^','&','*','(',')','_','+','=','-',
+                  'q','w','e','r','t','y','u','i','o','p',
+                  '[',']','a','s','d','f','g','h','j','k',
+                  ';','\'','\\','z','x','c','v','b','n',
+                  'm',',','.','/','{','}',':','"','|','<',
+                  '>','?']
+
+numberOfCharactersInSet1 = 91
+
+#A list to contain a set of characters used for generating
+#the random password (83 character)
+charactersSet2 =    ['Q','W','E','R','T','Y','U','I','O','P',
+                    'A','S','D','F','G','H','J','K','L','Z',
+                    'X','C','V','B','N','M','1','2','3','4',
+                    '5','6','7','8','9','~','!','@','#','$',
+                    '%','^','&','*','(',')','_','+','=','-',
+                    'q','w','e','r','t','y','u','i','o','p',
+                    '[',']','a','s','d','f','g','h','j','k',
+                    'z','x','c','v','b','n','m','{','}','|',
+                    '<','>','?']
+
+numberOfCharactersInSet2 = 83
 
 #Name of the input/output file
 inputFileName = "testOutputFile.txt"
 
 #Updated name of the input/output file
 inputFileNameUpdated = "testOutputFileOLD.txt"
+
+#The default e-mail
+defaultEmail = "default.email@mail.com"
 
 #A class for the Account object
 class Account:
@@ -50,24 +69,26 @@ def generatePassword():
     password = ""
     random.seed(datetime.now())
     randomFactor = 987561247.95312
+    numberOfCharactersInSet = numberOfCharactersInSet2
 
     for i in range(0,10):
         random.seed(datetime.now())
-        randomIndex = int(random.random()*randomFactor*(i+1))%91
-        password += Characters[randomIndex]
+        randomIndex = int(random.random()*randomFactor*(i+1))%numberOfCharactersInSet
+        password += charactersSet2[randomIndex]
 
     return password
 
 #To manage the whole flow of the code
-def accountsManager():
+def accountsManager(organisation):
 
-    Organisation = input("Enter the name of the organisation: ")
+    #Organisation = input("Enter the name of the organisation: ")
+    Organisation = organisation
 
     if not (Organisation in Accounts.keys()):
         #For debugging purposes
         #viewAccount(Organisation)
 
-        email = input("Enter email: ")
+        email = defaultEmail
         password = generatePassword()
         account = Account(Organisation, email, password)
         Accounts[account.Organisation] = account
@@ -85,7 +106,7 @@ def writeToOutputFile():
         accountsData += "\n\n"
     inputFile.write(accountsData)
     inputFile.close()
-    os.remove("./" + inputFileNameUpdated)
+    #os.remove("./" + inputFileNameUpdated)
 
 #To read info of User accounts from an external file and save it to
 # Accounts dictionary
@@ -98,7 +119,7 @@ def readInputFile():
     inputFile = open(inputFileName,"r")
     accountsData = inputFile.readlines()
     inputFile.close()
-    os.rename("./" + inputFileName, "./" + inputFileNameUpdated)
+    #os.rename("./" + inputFileName, "./" + inputFileNameUpdated)
 
     for lineIndex in range(0,len(accountsData),5):
 
@@ -111,23 +132,23 @@ def readInputFile():
 
 
 #Start of Program
-def mainFunction():
+def mainFunction(organisation):
 
     #Receive input from User
-    Input = input("Enter anything but 0\n")
+    #Input = input("Enter anything but 0\n")
 
     #Read the already existing info of the accounts
     #from the input text file
-    readInputFile()
+    #readInputFile()
 
     #Print the read data for debugging purposes
     #printAccounts()
 
     #The main loop of the program
     #Will continue to ask for User's input till the User enters 0
-    while (Input != "0"):
+    #while (Input != "0"):
 
-        return accountsManager()
+    return accountsManager(organisation)
 
         # Receive input from User
         #Input = input("Enter anything but 0\n")
