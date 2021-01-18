@@ -1,6 +1,6 @@
-# Route Planning Project
+# Route Planner
 
-This repo contains the code for the Route Planning project.
+This repo contains the code for the Route Planner.
 
 <img src="map.png" width="600" height="450" />
 
